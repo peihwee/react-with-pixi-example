@@ -10,7 +10,7 @@ class ProductsScreen extends React.Component
     {
         const aList = [];
 
-        for (var i=0; i<10; i++) 
+        for (var i=0; i<99; i++) 
         {
             aList.push(<li key={i}><a href={'products/'+i}>Item {i}</a></li>);
         }

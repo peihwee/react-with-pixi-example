@@ -6,23 +6,41 @@ class SingleProductScreen extends React.Component
     constructor() {
         super()
 
+        this.pixiSizeWidth = 400;
+        this.pixiSizeHeight = 280;
+
         this.divPixi = null;
 
         this.setDivRef = element => {
             this.divPixi = element;
         }
+
+        this.resizePixi = this.resizePixi.bind(this);
+    }
+
+    resizePixi()
+    {
+        console.log("this.divPixi.clientWidth:"+this.divPixi.clientWidth);
+
+        let iRatio = this.divPixi.clientWidth / this.pixiSizeWidth;
+        this.divPixi.style.height = this.pixiSizeHeight * iRatio + "px";
     }
 
     componentDidMount() 
     {
+        window.addEventListener('resize', this.resizePixi);
+
         this.objPixiApp = new PIXI.Application(
             {
-                width: 400,
-                height: 280,
+                width: this.pixiSizeWidth,
+                height: this.pixiSizeHeight,
                 backgroundColor: 0x5BBA6F,
+                resizeTo: this.divPixi
             }
         );
 
+        this.resizePixi();
+        
         this.divPixi.appendChild(this.objPixiApp.view);
 
         this.objPixiApp.start();

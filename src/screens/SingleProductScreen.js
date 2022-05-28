@@ -35,8 +35,12 @@ class SingleProductScreen extends React.Component
 
         for(let i=0; i<this.props.productId; i++)
         {
-            const iColor = 1 + Math.floor (Math.random() * 4)
-            const sprFish = PIXI.Sprite.from(process.env.PUBLIC_URL+'/images/fish0'+iColor+'.svg');
+            const iColor = 1 + Math.floor (Math.random() * 13);
+            
+            let sColor = ""+iColor;
+            if(iColor < 10) sColor = "0"+iColor;
+
+            const sprFish = PIXI.Sprite.from(process.env.PUBLIC_URL+'/images/fish'+sColor+'.svg');
             
             // center the sprite's anchor point
             sprFish.anchor.set(0.5);
@@ -45,11 +49,11 @@ class SingleProductScreen extends React.Component
             sprFish.x = 50 + Math.random() * (this.objResizable.width - 100);
             sprFish.y = 50 + Math.random() * (this.objResizable.height - 100);
 
-            sprFish.scale.x = sprFish.scale.y = 0.35;
+            sprFish.scale.x = sprFish.scale.y = 0.15 + (Math.random() * 0.2);
             
             this.objPixiApp.stage.addChild(sprFish);
 
-            const swimSpeed = 3 + Math.floor (Math.random() * 5);
+            const swimSpeed = 3 + (Math.random() * 6);
 
             this.objPixiApp.ticker.add(() => {
                 sprFish.x -= swimSpeed;

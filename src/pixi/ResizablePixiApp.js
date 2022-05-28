@@ -12,11 +12,13 @@ class ResizablePixiApp
         this.pixiSizeWidth = width;
         this.pixiSizeHeight = height;
 
+        this.pixiScreenRatio =  this.pixiSizeHeight / this.pixiSizeWidth;
+
         this.objPixiApp = new PIXI.Application(
             {
                 width: this.pixiSizeWidth,
                 height: this.pixiSizeHeight,
-                backgroundColor: 0xFFFFFF,
+                backgroundColor: 0x000,
                 resizeTo: this.divHolder
             }
         );
@@ -33,23 +35,48 @@ class ResizablePixiApp
     
     resizePixi()
     {
+        /////////////////////////////////////////////////////////////
+        // Learnt about clientWidth, scrollWidth
+        // Concluded that offsetWidth is the most accurate way
+        // suitable for screen rotation also.
+        /////////////////////////////////////////////////////////////
+
+        
+        //this.divHolder.style.height = this.pixiSizeHeight * iRatio + "px";
+        //console.log("this.pixiScreenRatio:"+this.pixiScreenRatio);
+
+        this.divHolder.style.height = (this.divHolder.offsetWidth * this.pixiScreenRatio) + "px";
+        
         try
         {
-            let iRatio = this.divHolder.scrollWidth / this.pixiSizeWidth;
-            this.divHolder.style.height = this.pixiSizeHeight * iRatio + "px";
-
-            //console.log("this.objPixiApp.stage:"+this.objPixiApp.stage);
-            //console.log("iRatio:"+iRatio);
-            //console.log("this.divHolder.scrollWidth :"+this.divHolder.scrollWidth);
-            //console.log("this.divHolder.scrollHeight :"+this.divHolder.scrollHeight);
-
-            this.objPixiApp.stage.scale.x = this.objPixiApp.stage.scale.y = iRatio;
-            this.objPixiApp.resize(this.divHolder.offsetWidth, this.divHolder.scrollHeight);
+            /////////////////////////////////////////////////////
+            // This cause the ratio to be off at certain width
+            /////////////////////////////////////////////////////
+            this.objPixiApp.resize(this.divHolder.offsetWidth, this.divHolder.offsetHeight);
         }
         catch(error)
         {
             //console.error(error);
         }
+
+        let iScaleRatioX = this.divHolder.offsetWidth / this.pixiSizeWidth;
+        let iScaleRatioY = this.divHolder.offsetHeight / this.pixiSizeHeight;
+        //console.log("this.objPixiApp.stage:"+this.objPixiApp.stage);
+        //console.log("iRatio:"+iRatio);
+        //console.log("this.divHolder.offsetWidth :"+this.divHolder.offsetWidth);
+        //console.log("this.divHolder.style.height :"+this.divHolder.style.height);
+
+        try
+        {
+            this.objPixiApp.stage.scale.x = iScaleRatioX;
+            this.objPixiApp.stage.scale.y = iScaleRatioY;
+        }
+        catch(error)
+        {
+            //console.error(error);
+        }
+
+        
     }
 
     getPixiApp()

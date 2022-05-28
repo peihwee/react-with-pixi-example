@@ -16,7 +16,7 @@ class ResizablePixiApp
             {
                 width: this.pixiSizeWidth,
                 height: this.pixiSizeHeight,
-                backgroundColor: 0x000000,
+                backgroundColor: 0xFFFFFF,
                 resizeTo: this.divHolder
             }
         );

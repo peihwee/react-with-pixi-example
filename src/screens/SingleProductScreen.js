@@ -60,6 +60,16 @@ class SingleProductScreen extends React.Component
 
                 if(sprFish.x + sprFish.width < 0) sprFish.x = this.objResizable.width + 50;
             });
+
+            sprFish.iID = i;
+            sprFish.iColor = iColor;
+
+            sprFish.interactive = true;
+            sprFish.on('mousedown', (event) => {
+                console.log('Mouse clicked');
+                console.log('X', event.data.global.x, 'Y', event.data.global.y);
+                this.objPopup.showModal("Fish ID is "+sprFish.iID+" and Color is "+sprFish.iColor);
+            });
         }
 
         const sprFg = PIXI.Sprite.from(process.env.PUBLIC_URL+'/images/underwater_foreground.svg');

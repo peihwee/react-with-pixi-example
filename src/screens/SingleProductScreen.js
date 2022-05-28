@@ -65,10 +65,17 @@ class SingleProductScreen extends React.Component
             sprFish.iColor = iColor;
 
             sprFish.interactive = true;
-            sprFish.on('mousedown', (event) => {
-                console.log('Mouse clicked');
+            sprFish.on('pointerdown', (event) => {
+
+                ///////////////////////////////////////////////////////////////////////////
+                // Convert global to follow stage position
+                ///////////////////////////////////////////////////////////////////////////
+                event.data.getLocalPosition(this.objPixiApp.stage, event.data.global);
+                ///////////////////////////////////////////////////////////////////////////
+
                 console.log('X', event.data.global.x, 'Y', event.data.global.y);
-                this.objPopup.showModal("Fish ID is "+sprFish.iID+" and Color is "+sprFish.iColor);
+                this.objPopup.showModal("Fish ID is "+sprFish.iID+" and Color is "+sprFish.iColor
+                                        +', X='+ Math.floor(event.data.global.x)+ ' & Y='+ Math.floor(event.data.global.y));
             });
         }
 

@@ -88,7 +88,6 @@ class SingleProductScreen extends React.Component
 
             sprFish.fThink();
             
-            //gsap.to(sprFish, { x: randomX, y: randomY, duration: randomDuration, onComplete: sprFish.fThink } );
             
             sprFish.iID = i;
             sprFish.iColor = iColor;
